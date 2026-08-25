@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer LTV Prediction Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                📊
+            </div>
+
+            <div>
+                <h2>LTV Predictor</h2>
+                <span>AI Analytics</span>
+            </div>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <nav class="nav">
+
+            <button class="nav-item active"
+                    data-page="dashboard">
+
+                📊 Dashboard
+
+            </button>
+
+
+            <button class="nav-item"
+                    data-page="prediction">
+
+                🤖 LTV Prediction
+
+            </button>
+
+
+            <button class="nav-item"
+                    data-page="history">
+
+                📋 Prediction History
+
+            </button>
+
+
+            <button class="nav-item"
+                    data-page="analytics">
+
+                🧠 AI Analytics
+
+            </button>
+
+
+            <button class="nav-item"
+                    data-page="insights">
+
+                👥 Customer Insights
+
+            </button>
+
+        </nav>
+
+
+        <!-- User -->
+
+        <div class="sidebar-footer">
+
+            <div class="user-card">
+
+                <div class="avatar">
+                    KB
+                </div>
+
+                <div>
+
+                    <strong>
+                        Kasim Basha
+                    </strong>
+
+                    <small>
+                        Logged in user
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+
+        <!-- Header -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>
+                    Customer LTV Prediction
+                </h1>
+
+                <p>
+                    Welcome back, Kasim Basha 👋
+                </p>
+
+            </div>
+
+
+            <div class="status-pill">
+
+                ● System Online
+
+            </div>
+
+        </header>
+
+
+        <!-- ================================================= -->
+        <!-- DASHBOARD -->
+        <!-- ================================================= -->
+
+        <section id="dashboard"
+                 class="page active-page">
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h2>
+                        📊 Dashboard
+                    </h2>
+
+                    <p>
+                        Overview of customer lifetime value
+                        and business performance.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- KPI CARDS -->
+
+            <div class="metrics-grid">
+
+
+                <div class="metric-card">
+
+                    <span>
+                        💰 Total Revenue
+                    </span>
+
+                    <strong>
+                        ₹<span id="totalRevenue">0</span>
+                    </strong>
+
+                    <small>
+                        Historical retail revenue
+                    </small>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span>
+                        👥 Customers
+                    </span>
+
+                    <strong id="totalCustomers">
+                        0
+                    </strong>
+
+                    <small>
+                        Unique customers
+                    </small>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span>
+                        🛒 Orders
+                    </span>
+
+                    <strong id="totalOrders">
+                        0
+                    </strong>
+
+                    <small>
+                        Total invoices
+                    </small>
+
+                </div>
+
+
+                <div class="metric-card">
+
+                    <span>
+                        📦 Avg. Order Value
+                    </span>
+
+                    <strong>
+                        ₹<span id="avgOrder">0</span>
+                    </strong>
+
+                    <small>
+                        Average transaction value
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- DASHBOARD CONTENT -->
+
+            <div class="content-grid">
+
+
+                <!-- Countries -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            🌍 Top Countries by Revenue
+                        </h3>
+
+                        <span>
+                            Demo visualization
+                        </span>
+
+                    </div>
+
+
+                    <div id="countryChart"
+                         class="bar-chart">
+
+                    </div>
+
+                </div>
+
+
+                <!-- Segments -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            ⭐ Customer Segments
+                        </h3>
+
+                        <span>
+                            Current predictions
+                        </span>
+
+                    </div>
+
+
+                    <div class="segment-list">
+
+                        <div>
+
+                            <span>
+                                VIP Customer
+                            </span>
+
+                            <strong id="vipCount">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Loyal Customer
+                            </span>
+
+                            <strong id="loyalCount">
+                                0
+                            </strong>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>
+                                Regular Customer
+                            </span>
+
+                            <strong id="regularCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- LTV PREDICTION -->
+        <!-- ================================================= -->
+
+        <section id="prediction"
+                 class="page">
+
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h2>
+                        🤖 Predict Customer Lifetime Value
+                    </h2>
+
+                    <p>
+                        Enter RFM information to estimate customer LTV.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="prediction-layout">
+
+
+                <!-- FORM -->
+
+                <div class="panel form-panel">
+
+                    <h3>
+                        Customer Information
+                    </h3>
+
+
+                    <form id="predictionForm">
+
+
+                        <!-- Customer -->
+
+                        <label>
+
+                            Customer Name
+
+                            <input
+                                id="customerName"
+                                type="text"
+                                placeholder="e.g. Rahul"
+                                required
+                            >
+
+                        </label>
+
+
+                        <div class="form-row">
+
+
+                            <!-- Recency -->
+
+                            <label>
+
+                                Recency (days)
+
+                                <input
+                                    id="recency"
+                                    type="number"
+                                    min="0"
+                                    value="10"
+                                    required
+                                >
+
+                                <small>
+                                    Days since the customer's
+                                    last purchase.
+                                </small>
+
+                            </label>
+
+
+                            <!-- Frequency -->
+
+                            <label>
+
+                                Frequency
+
+                                <input
+                                    id="frequency"
+                                    type="number"
+                                    min="1"
+                                    value="5"
+                                    required
+                                >
+
+                                <small>
+                                    Number of purchases/orders.
+                                </small>
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- Monetary -->
+
+                        <label>
+
+                            Monetary Value (₹)
+
+                            <input
+                                id="monetary"
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                value="1000"
+                                required
+                            >
+
+                            <small>
+                                Total amount spent by the customer.
+                            </small>
+
+                        </label>
+
+
+                        <button
+                            class="primary-btn"
+                            type="submit">
+
+                            Predict LTV
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- RESULT -->
+
+                <div class="panel result-panel">
+
+                    <div class="result-icon">
+                        🤖
+                    </div>
+
+                    <h3>
+                        Prediction Result
+                    </h3>
+
+                    <div id="predictionResult"
+                         class="empty-result">
+
+                        Enter customer details and click
+                        <b>Predict LTV</b>.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RFM -->
+
+            <div class="rfm-explanation">
+
+
+                <div>
+
+                    <b>
+                        R — Recency
+                    </b>
+
+                    <span>
+                        How recently the customer purchased.
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <b>
+                        F — Frequency
+                    </b>
+
+                    <span>
+                        How often the customer purchases.
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <b>
+                        M — Monetary
+                    </b>
+
+                    <span>
+                        How much money the customer spends.
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- HISTORY -->
+        <!-- ================================================= -->
+
+        <section id="history"
+                 class="page">
+
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h2>
+                        📋 Prediction History
+                    </h2>
+
+                    <p>
+                        Customer LTV predictions created in this browser.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="secondary-btn"
+                    id="clearHistory">
+
+                    Clear History
+
+                </button>
+
+            </div>
+
+
+            <div class="panel table-panel">
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Customer
+                                </th>
+
+                                <th>
+                                    Recency
+                                </th>
+
+                                <th>
+                                    Frequency
+                                </th>
+
+                                <th>
+                                    Monetary
+                                </th>
+
+                                <th>
+                                    Predicted LTV
+                                </th>
+
+                                <th>
+                                    Segment
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="historyBody">
+
+                            <tr>
+
+                                <td
+                                    colspan="6"
+                                    class="empty-table">
+
+                                    No predictions yet.
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- AI ANALYTICS -->
+        <!-- ================================================= -->
+
+        <section id="analytics"
+                 class="page">
+
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h2>
+                        🧠 AI Analytics
+                    </h2>
+
+                    <p>
+                        Model comparison and RFM feature importance.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="content-grid">
+
+
+                <!-- MODEL COMPARISON -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            📊 Model Performance Comparison
+                        </h3>
+
+                        <span>
+                            R² Score
+                        </span>
+
+                    </div>
+
+
+                    <div class="model-chart">
+
+
+                        <div class="model-row">
+
+                            <span>
+                                Linear Regression
+                            </span>
+
+                            <div class="progress">
+
+                                <i style="width:85%"></i>
+
+                            </div>
+
+                            <b>
+                                0.85
+                            </b>
+
+                        </div>
+
+
+                        <div class="model-row">
+
+                            <span>
+                                Random Forest
+                            </span>
+
+                            <div class="progress">
+
+                                <i style="width:92%"></i>
+
+                            </div>
+
+                            <b>
+                                0.92
+                            </b>
+
+                        </div>
+
+
+                        <div class="model-row">
+
+                            <span>
+                                XGBoost
+                            </span>
+
+                            <div class="progress">
+
+                                <i style="width:97%"></i>
+
+                            </div>
+
+                            <b>
+                                0.97
+                            </b>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- FEATURE IMPORTANCE -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            🔥 Feature Importance
+                        </h3>
+
+                        <span>
+                            RFM Features
+                        </span>
+
+                    </div>
+
+
+                    <div class="model-chart">
+
+
+                        <div class="model-row">
+
+                            <span>
+                                Recency
+                            </span>
+
+                            <div class="progress">
+
+                                <i style="width:15%"></i>
+
+                            </div>
+
+                            <b>
+                                0.15
+                            </b>
+
+                        </div>
+
+
+                        <div class="model-row">
+
+                            <span>
+                                Frequency
+                            </span>
+
+                            <div class="progress">
+
+                                <i style="width:59%"></i>
+
+                            </div>
+
+                            <b>
+                                0.59
+                            </b>
+
+                        </div>
+
+
+                        <div class="model-row">
+
+                            <span>
+                                Monetary
+                            </span>
+
+                            <div class="progress">
+
+                                <i style="width:25%"></i>
+
+                            </div>
+
+                            <b>
+                                0.25
+                            </b>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- AI INSIGHTS -->
+
+            <div class="insight-grid">
+
+
+                <div class="insight success">
+
+                    <span>
+                        💡
+                    </span>
+
+                    <div>
+
+                        <b>
+                            Most important factor
+                        </b>
+
+                        <p>
+                            Frequency has the strongest
+                            influence on customer LTV.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="insight info">
+
+                    <span>
+                        🏆
+                    </span>
+
+                    <div>
+
+                        <b>
+                            Best performing model
+                        </b>
+
+                        <p>
+                            XGBoost has the highest
+                            R² score in this demo.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- CUSTOMER INSIGHTS -->
+        <!-- ================================================= -->
+
+        <section id="insights"
+                 class="page">
+
+
+            <div class="page-heading">
+
+                <div>
+
+                    <h2>
+                        👥 Customer Insights
+                    </h2>
+
+                    <p>
+                        Understand your highest-value customers.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h3>
+                    🏆 Top Customers from Predictions
+                </h3>
+
+
+                <div id="topCustomers"
+                     class="customer-cards">
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Footer -->
+
+        <footer>
+
+            Customer LTV Prediction • AI/ML Portfolio Project
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<!-- JavaScript -->
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
